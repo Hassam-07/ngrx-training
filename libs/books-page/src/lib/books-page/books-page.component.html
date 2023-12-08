@@ -1,10 +1,10 @@
 <div class="container">
   <div class="col-50">
-    <bco-books-total [total]="total"> </bco-books-total>
+    <bco-books-total [total]="total$"> </bco-books-total>
 
     <bco-books-list
-      [books]="books"
-      (select)="onSelect($event)"
+      [books]="books$ | async"
+      (selected)="onSelect($event)"
       (delete)="onDelete($event)"
     >
     </bco-books-list>
@@ -12,7 +12,7 @@
 
   <bco-book-detail
     class="col-50"
-    [book]="currentBook"
+    [book]="currentBook$"
     (save)="onSave($event)"
     (cancel)="onCancel()"
   >

@@ -9,6 +9,6 @@ import { BookModel } from '@book-co/shared-models';
 export class BooksListComponent {
   @Input() books: BookModel[] | null = [];
   @Input() readonly: boolean | null = false;
-  @Output() select = new EventEmitter();
+  @Output() selected = new EventEmitter();
   @Output() delete = new EventEmitter();
 }
