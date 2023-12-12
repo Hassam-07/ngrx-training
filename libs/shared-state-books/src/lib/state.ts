@@ -51,10 +51,10 @@ export const selectAllBooks = createSelector(
 
 export const selectActiveBook = createSelector(
   selectBooksState,
-  fromBooks.selectAll
+  fromBooks.selectActiveBook
 );
 
 export const selectBooksEarningsTotal = createSelector(
   selectBooksState,
-  fromBooks.selectAll
+  fromBooks.selectEarningsTotal
 );

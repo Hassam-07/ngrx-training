@@ -21,26 +21,26 @@ import { BooksService } from '@book-co/shared-services';
 })
 export class BooksPageComponent implements OnInit {
   books$: Observable<BookModel[]>;
-  currentBook$: any;
-  total$: any;
+  currentBook$: Observable<BookModel | null>;
+  total$: Observable<number>;
 
-  constructor(private booksService: BooksService, private store: Store) {
+  constructor(private store: Store) {
     this.books$ = store.select(selectAllBooks);
     this.currentBook$ = store.select(selectActiveBook);
     this.total$ = store.select(selectBooksEarningsTotal);
   }
 
   ngOnInit() {
-    this.getBooks();
+    // this.getBooks();
     this.removeSelectedBook();
     this.store.dispatch(BooksPageActions.enter());
   }
 
-  getBooks() {
-    this.booksService.all().subscribe((books) => {
-      this.store.dispatch(BooksApiActions.booksLoaded({ books }));
-    });
-  }
+  // getBooks() {
+  //   this.booksService.all().subscribe((books) => {
+  //     this.store.dispatch(BooksApiActions.booksLoaded({ books }));
+  //   });
+  // }
 
   onSelect(book: BookModel) {
     this.store.dispatch(
@@ -72,11 +72,6 @@ export class BooksPageComponent implements OnInit {
         book: bookProps,
       })
     );
-    this.booksService.create(bookProps).subscribe((book) => {
-      this.getBooks();
-      this.removeSelectedBook();
-      this.store.dispatch(BooksApiActions.bookCreated({ book }));
-    });
   }
 
   updateBook(book: BookModel) {
@@ -86,11 +81,6 @@ export class BooksPageComponent implements OnInit {
         changes: book,
       })
     );
-    this.booksService.update(book.id, book).subscribe((book) => {
-      this.getBooks();
-      this.removeSelectedBook();
-      this.store.dispatch(BooksApiActions.bookUpdated({ book }));
-    });
   }
 
   onDelete(book: BookModel) {
@@ -99,14 +89,5 @@ export class BooksPageComponent implements OnInit {
         bookId: book.id,
       })
     );
-    this.booksService.delete(book.id).subscribe(() => {
-      this.getBooks();
-      this.removeSelectedBook();
-      this.store.dispatch(
-        BooksApiActions.bookDeleted({
-          bookId: book.id,
-        })
-      );
-    });
   }
 }

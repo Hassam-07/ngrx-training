@@ -8,7 +8,7 @@ export const booksLoaded = createAction(
 
 export const bookCreated = createAction(
   '[Books Api] BooksCreated',
-  props<{ book: BookModel }>()
+  props<{ book: BookModel; isCreateAction?: boolean }>()
 );
 
 export const bookUpdated = createAction(
